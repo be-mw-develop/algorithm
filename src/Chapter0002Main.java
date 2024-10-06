@@ -45,31 +45,32 @@ public class Chapter0002Main {
      *
      */
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String sizeAndQuestionCount = sc.nextLine();
-        int n = Integer.parseInt(sizeAndQuestionCount.split(" ")[0]);
-        int m = Integer.parseInt(sizeAndQuestionCount.split(" ")[1]);
-        int[][] table = new int[n + 1][n + 1];
-        long[][] sumTable = new long[n + 1][n + 1];
+        try(Scanner sc = new Scanner(System.in)){
+            String sizeAndQuestionCount = sc.nextLine();
+            int n = Integer.parseInt(sizeAndQuestionCount.split(" ")[0]);
+            int m = Integer.parseInt(sizeAndQuestionCount.split(" ")[1]);
+            int[][] table = new int[n + 1][n + 1];
+            long[][] sumTable = new long[n + 1][n + 1];
 
-        for(int i = 1; i <= n; i++) {
-            String row = sc.nextLine();
-            table[i] = new int[n + 1];
-            String[] rowArray = row.split(" ");
-            for(int j = 1; j <= n; j++) {
-                table[i][j] = Integer.parseInt(rowArray[j - 1]);
-                sumTable[i][j] = sumTable[i][j - 1] + sumTable[i - 1][j] - sumTable[i - 1][j - 1] + table[i][j];
+            for(int i = 1; i <= n; i++) {
+                String row = sc.nextLine();
+                table[i] = new int[n + 1];
+                String[] rowArray = row.split(" ");
+                for(int j = 1; j <= n; j++) {
+                    table[i][j] = Integer.parseInt(rowArray[j - 1]);
+                    sumTable[i][j] = sumTable[i][j - 1] + sumTable[i - 1][j] - sumTable[i - 1][j - 1] + table[i][j];
+                }
             }
-        }
 
-        for(int i = 0; i < m; i++) {
-            String question = sc.nextLine();
-            int x1 = Integer.parseInt(question.split(" ")[0]);
-            int y1 = Integer.parseInt(question.split(" ")[1]);
-            int x2 = Integer.parseInt(question.split(" ")[2]);
-            int y2 = Integer.parseInt(question.split(" ")[3]);
-            long result = sumTable[x2][y2] - sumTable[x1 - 1][y2] - sumTable[x2][y1 - 1] + sumTable[x1 - 1][y1 - 1];
-            System.out.println(result);
+            for(int i = 0; i < m; i++) {
+                String question = sc.nextLine();
+                int x1 = Integer.parseInt(question.split(" ")[0]);
+                int y1 = Integer.parseInt(question.split(" ")[1]);
+                int x2 = Integer.parseInt(question.split(" ")[2]);
+                int y2 = Integer.parseInt(question.split(" ")[3]);
+                long result = sumTable[x2][y2] - sumTable[x1 - 1][y2] - sumTable[x2][y1 - 1] + sumTable[x1 - 1][y1 - 1];
+                System.out.println(result);
+            }
         }
     }
 }

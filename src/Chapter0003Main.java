@@ -39,29 +39,30 @@ public class Chapter0003Main {
      * }
      */
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int numCount = sc.nextInt();
-        int modValue = sc.nextInt();
+        try(Scanner sc = new Scanner(System.in)){
+            int numCount = sc.nextInt();
+            int modValue = sc.nextInt();
 
-        long[] sumData = new long[numCount];
-        sumData[0] = sc.nextInt();
-        for (int i = 1; i < numCount; i++) {
-            sumData[i] = sumData[i - 1] + sc.nextInt();
-        }
-
-        int zeroCount = 0;
-        int[] modData = new int[numCount];
-        for(int i = 0; i < numCount; i++) {
-            int mod = (int) (sumData[i] % modValue);
-            if(mod == 0) zeroCount++;
-            modData[mod]++;
-        }
-
-        for(int i = 0; i < modValue; i++) {
-            if(modData[i] > 1) {
-                zeroCount += modData[i] * (modData[i] - 1) / 2;
+            long[] sumData = new long[numCount];
+            sumData[0] = sc.nextInt();
+            for (int i = 1; i < numCount; i++) {
+                sumData[i] = sumData[i - 1] + sc.nextInt();
             }
+
+            int zeroCount = 0;
+            int[] modData = new int[numCount];
+            for(int i = 0; i < numCount; i++) {
+                int mod = (int) (sumData[i] % modValue);
+                if(mod == 0) zeroCount++;
+                modData[mod]++;
+            }
+
+            for(int i = 0; i < modValue; i++) {
+                if(modData[i] > 1) {
+                    zeroCount += modData[i] * (modData[i] - 1) / 2;
+                }
+            }
+            System.out.println("result value => " + zeroCount);
         }
-        System.out.println("result value => " + zeroCount);
     }
 }
